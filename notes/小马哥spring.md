@@ -58,6 +58,43 @@ ioc来源于好莱坞原则
 
 **通用原则**
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+<!--  cmcccccccc -->
+	<bean id="myUser" name="myUserr" class="org.geekbang.thinking.in.spring.ioc.overview.domain.MyUser" primary="true">
+		<property name="id" value="1"></property>
+		<property name="name" value="cmc"></property>
+	</bean>
+	<!--  id和name都不能重复  -->
+		<bean id="myUser1" name="myUserr1" class="org.geekbang.thinking.in.spring.ioc.overview.domain.MyUser">
+		<property name="id" value="2"></property>
+		<property name="name" value="czmc"></property>
+	</bean>
+	
+	<!--  parent标识继承某个bean 继承它里边的数据-->
+	<bean id="mySuperUser" class="org.geekbang.thinking.in.spring.ioc.overview.domain.MySuperUser" parent="myUser">
+		<property name="address" value="北京"></property>
+	</bean>
+		
+	<bean id = "objectFacoryBean" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+		<!-- 这里的这个属性，是我们需要关联一个需要被延迟加载的bean，value是bean的id -->
+		<property name="targetBeanName" value="myUser"></property>
+	</bean>
+</beans>
+```
+
+
+
 - 依赖处理
   - 依赖查找（就是我们主动去查找资源）
   - 依赖注入（他也有查找的过程，但是通过容器来自动提供给隐藏了）
@@ -69,5 +106,7 @@ ioc来源于好莱坞原则
   - 外部化配置（属性的配置，比如一些xml配置）
   - 托管的资源（JavaBean 或其他的资源）
 
-### 4：IOC的一些主要的实现
+### 4：Spring的依赖查找
+
+首先要配置我们的xml
 
